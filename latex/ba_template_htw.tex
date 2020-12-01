@@ -1,0 +1,288 @@
+% Name und persönliche Daten nur auf DECKBLATT und EIDESSTATTLICHER ERKLÄRUNG
+% DECKBLATT, SPERRVERMERK, VORWORT ohne Seitenzahlen
+% INHALTSVERZ., AUFGABENSTELLUNG, VERZEICHNISSE römische Nummerierung (I, II, III)
+% ALLES ANDERE arabisch (1, 2, 3)
+
+% DIN A4
+% Oben 		= 2,5 cm
+% Unten 	= 2,5 cm
+% Links 	= 3,0 cm
+% Rechts 	= 2,5 cm
+
+% Arial 11pt, Times New Roman 12pt
+% Zeilenabstand: einfach -1.5
+% Blocksatz mit Silbentrennung
+% Überschriften im Text abheben (fett oder so)
+% Zitierstil: IEEE
+% Bild 1: <Beschreibung> (unten)
+% Tabelle 1: <Beschreibung> (oben)
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% BIBLIOTHEKEN %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,12pt,headsepline]{scrartcl}
+
+\usepackage[utf8]{inputenc} 	% utf-8 encoding
+\usepackage{graphicx} 			% Grafiken
+\usepackage[ngerman]{babel} 	% deutsch als Hauptsprache
+\usepackage[right]{eurosym} 	% Eurozeichen
+\usepackage{fontspec} 			% Zeichenencoding
+\usepackage{lmodern}			% flüssigere Schrift
+\usepackage{longtable} 			% mehrseitige Tabellen
+\usepackage[left=3cm,right=2.5cm,top=2.5cm,bottom=2.5cm,includeheadfoot]{geometry}
+								% Seitenränder
+\usepackage{fancybox} 			% Paket für Boxen im Text
+\usepackage{url} 				% bricht lange URLs "schön" um
+\usepackage{xcolor} 				% Textfarben
+\usepackage{amssymb} 			% mathematische Symbole
+\usepackage{amsmath}			% Formeln
+% \usepackage{hyperref} 		% erzeugt Inhaltsverzeichnis mit Querverweisen zu den Abschnitten (PDF Version)
+\usepackage{fancyhdr} 			% Kopf- Fußzeilen
+%\usepackage{array} 			% für Tabellen
+\usepackage[onehalfspacing]{setspace} 
+								% Paket für Zeilenabstand
+\usepackage{caption} 			% extended captions
+%\usepackage{makeidx} 			% extended index
+\usepackage{listings} 			% code Blöcke
+\usepackage[backend=biber, sorting=none, citestyle=ieee]{biblatex}
+%\usepackage{biblatex}
+
+%\usepackage[german]{nomencl}
+%\usepackage{acronym}
+%\usepackage{blindtext}
+%\usepackage{csquotes}
+%\usepackage[dvipsnames]{xcolor}
+\usepackage{multirow}
+\usepackage{float}				% Bilder mit [H] genau dort einordnen wo sie hin sollen
+%\usepackage{dblfloatfix}
+%\usepackage[titles]{tocloft} 	% Für Formeln und Formelverzeichnis
+%\usepackage{floatflt} 			% floatende Bilder ermöglichen
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% EINSTELLUNGEN %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Neuer Absatz ohne Ausrückung
+\setlength{\parindent}{0pt}
+%\geometry{left=3cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+% Farben definieren für CODE
+\definecolor{codeGreenDark}{HTML}{1f9109}
+\definecolor{codeGreenMint}{HTML}{00e061}
+\definecolor{codeGray}{HTML}{a3a3a3}
+\definecolor{codePurple}{HTML}{c247ff}
+\definecolor{codeOrange}{HTML}{e39b00}
+\definecolor{codeDarkGray}{HTML}{303030}
+
+% Farben definieren für TEXT
+\definecolor{txtRed}{HTML}{ff0000}
+
+% Basic Setup
+\newcommand{\codeBg}{\color{codeDarkGray}}
+\newcommand{\codeText}{\color{white}}
+\newcommand{\codeTextKeyword}{\color{codePurple}}
+\newcommand{\codeTextStrings}{\color{codeOrange}}
+\newcommand{\codeTextComment}{\color{codeGray}}
+\newcommand{\codeTextLineNmbrs}{\color{codeDarkGray}}
+\newcommand{\codeFrame}{\color{codeDarkGray}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% LISTINGS/CODE SETUP %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\lstset{ 
+	backgroundcolor=\codeBg, 	% choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\footnotesize\ttfamily\codeText,      	% the size of the fonts that are used for the code
+	breakatwhitespace=false,       	% sets if automatic breaks should only happen at whitespace
+	breaklines=true,               	% sets automatic line breaking
+	captionpos=b,                  	% sets the caption-position to bottom
+	commentstyle=\codeTextComment,  	% comment style
+	deletekeywords={...},          	% if you want to delete keywords from the given language
+	escapeinside={\%*}{*)},        	% if you want to add LaTeX within your code
+	extendedchars=true,            	% lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+	firstnumber=1,              	% start line enumeration with line 1000
+	%frame=single,	               	% adds a frame around the code
+	keepspaces=true,               	% keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+	keywordstyle=\color{blue},     	% keyword style
+	language=Octave,               	% the language of the code
+	morekeywords={*,...},          	% if you want to add more keywords to the set
+	numbers=left,                  	% where to put the line-numbers; possible values are (none, left, right)
+	numbersep=5pt,                 	% how far the line-numbers are from the code
+	numberstyle=\codeTextLineNmbrs,% the style that is used for the line-numbers
+	%numberstyle=\tiny\color{codeGray},% the style that is used for the line-numbers
+	rulecolor=\codeFrame,       	% if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+	showspaces=false,              	% show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+	showstringspaces=false,        	% underline spaces within strings only
+	showtabs=false,                	% show tabs within strings adding particular underscores
+	stepnumber=1,                  	% the step between two line-numbers. If it's 1, each line will be numbered
+	stringstyle=\ttfamily\color{codePurple},   	% string literal style
+	tabsize=4,	                   	% sets default tabsize to 2 spaces
+	title=\lstname                 	% show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+%%\usepackage{beramono}
+% Style definition for languages
+\lstdefinestyle{customC}{
+	belowcaptionskip=1\baselineskip,
+	breaklines=true,
+	frame=single,
+	%xleftmargin=\parindent,
+	language=C,
+	showstringspaces=false,
+	%basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\bfseries\codeTextKeyword,
+	commentstyle=\itshape\codeTextComment,
+	%identifierstyle=\color{codeGreenMint},
+	stringstyle=\ttfamily\codeTextStrings,
+}
+
+% eigene Kopfzeilen und Fußzeilen
+\pagestyle{fancy} 						% eigener Seitenstil
+\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{\nouppercase{\leftmark}} 	% Kopfzeile links
+\fancyhead[C]{} 						% zentrierte Kopfzeile
+\fancyhead[R]{\thepage} 				% Kopfzeile rechts
+\renewcommand{\headrulewidth}{0.4pt} 	% obere Trennlinie
+
+%%\bibliographystyle{IEEEtran}
+% Bibliographie
+\addbibresource{ref.bib}
+\bibliography{ref}
+
+% Inhaltsverzeichnis
+\makeindex
+
+% Abkürzungsverzeichnis LiveTex Version
+% \makenomenclature
+
+\begin{document}
+	\input{vars}
+
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% DECKBLATT %%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\input{pages/0_deckblatt}
+	
+	\pagenumbering{Roman}
+	\onehalfspacing
+	\newpage
+	
+	% Sperrvermerk
+	% \thispagestyle{empty}
+	% \input{sperrvermerk}
+	% \newpage
+	
+	% Abstract
+	% \thispagestyle{empty}
+	% \input{abstract}
+	% \singlespacing
+	% \newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% VERZEICHNISSE %%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% Inhaltsverzeichnis
+	\setcounter{page}{1}
+	\thispagestyle{empty}
+	\tableofcontents
+	\newpage
+	
+	% Abbildungsverzeichnis
+	\addcontentsline{toc}{section}{Abbildungsverzeichnis}
+	\listoffigures
+	\newpage
+	
+	% Tabellenverzeichnis
+	\addcontentsline{toc}{section}{Tabellenverzeichnis}
+	\listoftables
+	\newpage
+	
+%	% Formelverzeichnis
+%	\addcontentsline{toc}{section}{Formelverzeichnis}
+%	\newcommand{\listequationsname}{Formelverzeichnis}
+%	\newlistof{myequations}{equ}{\listequationsname}
+%	\newcommand{\myequations}[1]{%
+%		\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+%	\listofmyequations
+%	\newpage
+	
+	% Listingverzeichnis
+	\renewcommand\lstlistingname{Listingverzeichnis}
+	\renewcommand\lstlistlistingname{Listingverzeichnis}
+	\addcontentsline{toc}{section}{Listingverzeichnis}
+	\lstlistoflistings
+	\newpage
+	
+	% Abkürzungsverzeichnis
+	% \section*{Abkürzungsverzeichnis}\label{abkuerzung}
+	% \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
+	% \fancyhead[L]{Abkürzungsverzeichnis}
+	% \input{latex_einstellungen/abkuezungen/abkuerzungen}
+	% \newpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% HAUPTTEIL %%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\fancyhead[L]{\nouppercase{\leftmark}}
+	\pagenumbering{arabic}
+	\onehalfspacing
+	
+	TestText \cite{testblabla}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% TESTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	Beispiel für Quellcode Listings
+	\begin{lstlisting}[style=customC]
+	#include <stdio.h>
+	#define DEBUG
+	/* Block
+	* comment */
+	
+	int main()
+	{
+	int i;
+	// Line comment.
+	puts("Hello world!");
+	for (i = 0; i < N; i++)
+	{
+	puts("LaTeX is also great for programmers!");
+	}
+	return 0;
+	}
+	\end{lstlisting}
+	
+%	\input{1_einleitung}
+%	\newpage
+
+%	\input{2_iwas}
+	\newpage
+		
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% LITERATURVERZEICHNIS %%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\singlespacing
+	\addcontentsline{toc}{section}{Literaturverzeichnis}
+	\renewcommand\refname{Literaturverzeichnis}
+	\printbibliography
+	\newpage
+	
+%	% Anhang
+%	% \onehalfspacing
+%	% \newpage
+%	% \addcontentsline{toc}{section}{Anhang}
+%	% \fancyhead[L]{Anhang} %Kopfzeile links
+%	% \input{anhang/anhang}
+%	
+%	% Eidesstattliche Erklärung
+%	\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
+%	\input{erklaerung}
+	
+\end{document}
