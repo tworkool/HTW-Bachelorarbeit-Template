@@ -16,6 +16,7 @@
 % Zitierstil: IEEE
 % Bild 1: <Beschreibung> (unten)
 % Tabelle 1: <Beschreibung> (oben)
+% caption links und label in caption Fett!
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,35 +36,42 @@
 								% Seitenränder
 \usepackage{fancybox} 			% Paket für Boxen im Text
 \usepackage{url} 				% bricht lange URLs "schön" um
-\usepackage{xcolor} 				% Textfarben
-\usepackage{amssymb} 			% mathematische Symbole
-\usepackage{amsmath}			% Formeln
+\usepackage[dvipsnames]{xcolor}	% Textfarben (dvipsnames = mehr farben!)
+\usepackage{amsmath,amsthm,amssymb,amsfonts}
+								% Mathe Formeln, Zeichen etc.
 % \usepackage{hyperref} 		% erzeugt Inhaltsverzeichnis mit Querverweisen zu den Abschnitten (PDF Version)
 \usepackage{fancyhdr} 			% Kopf- Fußzeilen
 %\usepackage{array} 			% für Tabellen
 \usepackage[onehalfspacing]{setspace} 
 								% Paket für Zeilenabstand
-\usepackage{caption} 			% extended captions
-%\usepackage{makeidx} 			% extended index
+\usepackage{caption}			% extended captions (fettes label)
+\usepackage{makeidx} 			% extended index
 \usepackage{listings} 			% code Blöcke
 \usepackage[backend=biber, sorting=none, citestyle=ieee]{biblatex}
 %\usepackage{biblatex}
 
-%\usepackage[german]{nomencl}
-%\usepackage{acronym}
+\usepackage[german]{nomencl}
+\usepackage{acronym}
+\usepackage{tabularx}
 %\usepackage{blindtext}
 %\usepackage{csquotes}
-%\usepackage[dvipsnames]{xcolor}
 \usepackage{multirow}
 \usepackage{float}				% Bilder mit [H] genau dort einordnen wo sie hin sollen
 %\usepackage{dblfloatfix}
 %\usepackage[titles]{tocloft} 	% Für Formeln und Formelverzeichnis
 %\usepackage{floatflt} 			% floatende Bilder ermöglichen
+\usepackage{booktabs}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% EINSTELLUNGEN %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% label in captions fett, caption links aligned! 
+\captionsetup{labelfont=bf, justification=raggedright, singlelinecheck=false}
+
+% Pfad für bilder setzen
+%\graphicspath{./abb/}
 
 % Neuer Absatz ohne Ausrückung
 \setlength{\parindent}{0pt}
@@ -88,6 +96,16 @@
 \newcommand{\codeTextComment}{\color{codeGray}}
 \newcommand{\codeTextLineNmbrs}{\color{codeDarkGray}}
 \newcommand{\codeFrame}{\color{codeDarkGray}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% SYMBOLVERZEICHNIS %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Punkte zw. Abkürzung und Erklärung
+\setlength{\nomlabelwidth}{.20\hsize}
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Zeilenabstände verkleinern
+\setlength{\nomitemsep}{-\parsep}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% LISTINGS/CODE SETUP %%%%%%%%%%%%%
@@ -156,7 +174,7 @@
 \makeindex
 
 % Abkürzungsverzeichnis LiveTex Version
-% \makenomenclature
+\makenomenclature
 
 \begin{document}
 	\input{vars}
@@ -217,12 +235,20 @@
 	\lstlistoflistings
 	\newpage
 	
-	% Abkürzungsverzeichnis
-	% \section*{Abkürzungsverzeichnis}\label{abkuerzung}
-	% \addcontentsline{toc}{section}{Abkürzungsverzeichnis}
-	% \fancyhead[L]{Abkürzungsverzeichnis}
-	% \input{latex_einstellungen/abkuezungen/abkuerzungen}
-	% \newpage
+	%Abkürzungsverzeichnis
+	\section*{Abkürzungsverzeichnis}\label{abkuerzung}
+	\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
+	\fancyhead[L]{Abkürzungsverzeichnis}
+	% \acro{kürzel}[kurzform]{langform}
+	\input{abk}
+	\newpage
+
+	% Symbolverzeichnis
+	\addcontentsline{toc}{section}{Symbolverzeichnis}
+	\fancyhead[L]{Symbolverzeichnis}
+	\input{symb}
+	\printnomenclature
+	\newpage
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% HAUPTTEIL %%%%%%%%%%%%%%%%%%%%%%%
@@ -232,14 +258,14 @@
 	\pagenumbering{arabic}
 	\onehalfspacing
 	
-	TestText \cite{testblabla}
+	TestText	 \cite{testblabla}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% TESTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	Beispiel für Quellcode Listings
-	\begin{lstlisting}[style=customC]
+	\begin{lstlisting}[style=customC, caption={Custom C Code}, label={lst:ccode}]
 	#include <stdio.h>
 	#define DEBUG
 	/* Block
@@ -247,22 +273,23 @@
 	
 	int main()
 	{
-	int i;
-	// Line comment.
-	puts("Hello world!");
-	for (i = 0; i < N; i++)
-	{
-	puts("LaTeX is also great for programmers!");
-	}
-	return 0;
+		int i;
+		// Line comment.
+		puts("Hello world!");
+		for (i = 0; i < N; i++)
+		{
+			puts("LaTeX is also great for programmers!");
+		}
+		return 0;
 	}
 	\end{lstlisting}
-	
-%	\input{1_einleitung}
-%	\newpage
-
-%	\input{2_iwas}
 	\newpage
+	
+	\input{pages/1_einleitung}
+	\newpage
+
+%	\input{pages/2_iwas}
+%	\newpage
 		
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% LITERATURVERZEICHNIS %%%%%%%%%%%%
@@ -281,8 +308,8 @@
 %	% \fancyhead[L]{Anhang} %Kopfzeile links
 %	% \input{anhang/anhang}
 %	
-%	% Eidesstattliche Erklärung
-%	\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
-%	\input{erklaerung}
+	% Eidesstattliche Erklärung
+	\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
+	\input{pages/eid_erkl}
 	
 \end{document}
