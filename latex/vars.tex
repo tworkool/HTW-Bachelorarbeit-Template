@@ -18,4 +18,22 @@
 	\end{figure}
 }
 
-\newcommand{\testi}[2][HALLO]{This is some text with #1 and #2}
+\newcommand{\doublefigure}[6]{
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{.5\textwidth}
+			\centering
+			%\includegraphics[width=0.9\textwidth]{#1}
+			\includegraphics[height=10cm]{#1}
+			\caption{#2}
+		\end{subfigure}%
+		\begin{subfigure}[b]{.5\textwidth}
+			\centering
+			%\includegraphics[width=0.9\textwidth]{#3}
+			\includegraphics[height=10cm]{#3}
+			\caption{#4}
+		\end{subfigure}
+		\caption{#5}
+		\label{#6}
+	\end{figure}
+}
