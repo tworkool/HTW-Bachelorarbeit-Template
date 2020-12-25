@@ -2,6 +2,10 @@
 
 % 21cm - 3cm - 2.5cm = 15.5cm textwidth
 % Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% TESTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{longtable}[c]{p{4.5cm} p{4.5cm} p{4.5cm}}
 	\caption{Diese Tabelle zeigt etwas}
 	\label{tab:my-table}\\
@@ -34,3 +38,25 @@
 	\includegraphics[width=1\textwidth, keepaspectratio=true]{abb/logo_htw.png}
 	\caption{some caption}
 \end{figure}
+
+Text \cite{testblabla}
+
+Beispiel für Quellcode Listings
+\begin{lstlisting}[style=customC, caption={Custom C Code}, label={lst:ccode}]
+#include <stdio.h>
+#define DEBUG
+/* Block
+* comment */
+
+int main()
+{
+int i;
+// Line comment.
+puts("Hello world!");
+for (i = 0; i < N; i++)
+{
+puts("LaTeX is also great for programmers!");
+}
+return 0;
+}
+\end{lstlisting}

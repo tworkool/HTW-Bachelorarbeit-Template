@@ -179,14 +179,17 @@
 
 \begin{document}
 	\input{vars}
-
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% DECKBLATT %%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\input{pages/0_deckblatt}
-	
-	\pagenumbering{Roman}
-	\onehalfspacing
+	\newpage
+	\thispagestyle{empty}
+	\textcolor{gray}{\textit{Diese Seite wurde absichtlich frei gelassen}}
+	\newpage
+	\thispagestyle{empty}
+	\input{pages/vorwort}
 	\newpage
 	
 	% Sperrvermerk
@@ -205,8 +208,10 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	% Inhaltsverzeichnis
-	\setcounter{page}{1}
 	\thispagestyle{empty}
+	\setcounter{page}{1}
+	\pagenumbering{Roman}
+	\onehalfspacing
 	\tableofcontents
 	\newpage
 	
@@ -220,14 +225,14 @@
 	\listoftables
 	\newpage
 	
-%	% Formelverzeichnis
-%	\addcontentsline{toc}{section}{Formelverzeichnis}
-%	\newcommand{\listequationsname}{Formelverzeichnis}
-%	\newlistof{myequations}{equ}{\listequationsname}
-%	\newcommand{\myequations}[1]{%
-%		\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
-%	\listofmyequations
-%	\newpage
+	%	% Formelverzeichnis
+	%	\addcontentsline{toc}{section}{Formelverzeichnis}
+	%	\newcommand{\listequationsname}{Formelverzeichnis}
+	%	\newlistof{myequations}{equ}{\listequationsname}
+	%	\newcommand{\myequations}[1]{%
+	%		\addcontentsline{equ}{myequations}{\protect\numberline{\theequation}#1}\par}
+	%	\listofmyequations
+	%	\newpage
 	
 	% Listingverzeichnis
 	\renewcommand\lstlistingname{Listingverzeichnis}
@@ -243,7 +248,7 @@
 	% \acro{kürzel}[kurzform]{langform}
 	\input{abk}
 	\newpage
-
+	
 	% Symbolverzeichnis
 	\addcontentsline{toc}{section}{Symbolverzeichnis}
 	\fancyhead[L]{Symbolverzeichnis}
@@ -255,43 +260,24 @@
 	%%% HAUPTTEIL %%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\fancyhead[L]{\nouppercase{\leftmark}}
+	\renewcommand{\sectionmark}[1]{\markright{#1}}
+	\lhead{\fancyplain{}{\rightmark }}
+	%\fancyhead[L]{\nouppercase{\leftmark}}
 	\pagenumbering{arabic}
 	\onehalfspacing
 	
-	TestText	 \cite{testblabla}
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%%% TESTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	Beispiel für Quellcode Listings
-	\begin{lstlisting}[style=customC, caption={Custom C Code}, label={lst:ccode}]
-	#include <stdio.h>
-	#define DEBUG
-	/* Block
-	* comment */
-	
-	int main()
-	{
-		int i;
-		// Line comment.
-		puts("Hello world!");
-		for (i = 0; i < N; i++)
-		{
-			puts("LaTeX is also great for programmers!");
-		}
-		return 0;
-	}
-	\end{lstlisting}
+	\input{pages/1_abstract}
 	\newpage
 	
-	\input{pages/1_einleitung}
+	\input{pages/2_einleitung}
 	\newpage
-
-%	\input{pages/2_iwas}
-%	\newpage
-		
+	
+	\input{pages/3_hauptteil}
+	\newpage
+	
+	\input{pages/4_zusammenfassung}
+	\newpage
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% LITERATURVERZEICHNIS %%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -302,13 +288,13 @@
 	\printbibliography
 	\newpage
 	
-%	% Anhang
-%	% \onehalfspacing
-%	% \newpage
-%	% \addcontentsline{toc}{section}{Anhang}
-%	% \fancyhead[L]{Anhang} %Kopfzeile links
-%	% \input{anhang/anhang}
-%	
+	%	% Anhang
+	%	% \onehalfspacing
+	%	% \newpage
+	%	% \addcontentsline{toc}{section}{Anhang}
+	%	% \fancyhead[L]{Anhang} %Kopfzeile links
+	%	% \input{anhang/anhang}
+	%	
 	% Eidesstattliche Erklärung
 	\addcontentsline{toc}{section}{Eidesstattliche Erklärung}
 	\input{pages/eid_erkl}
