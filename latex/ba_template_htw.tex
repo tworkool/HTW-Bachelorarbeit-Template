@@ -62,11 +62,32 @@
 %\usepackage{floatflt} 			% floatende Bilder ermöglichen
 \usepackage{booktabs}			% Toprule etc.
 \usepackage{subcaption}			% Bilder nebeneinander
-
+\usepackage{tocloft}			% for cftdot command
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% EINSTELLUNGEN %%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% no dots in toc
+%\renewcommand{\cftdot}{}
+
+%% for dots
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % for sections
+%\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}} % for chapters
+%\renewcommand{\cftpartleader}{\cftdotfill{\cftdotsep}} % for parts
+
+%% Sektion Einstellungen
+%\titleformat{\section}
+%{\normalfont\sffamily\huge\bfseries\color{black}}
+%{\thesection}{20pt}{\Huge}
+%\titleformat{\subsection}
+%{\normalfont\sffamily\huge\bfseries\color{black}}
+%{\thesubsection}{20pt}{\Huge}
+
+%% Sektions gleicher Font wie Text
+\addtokomafont{disposition}{\rmfamily}
+\setkomafont{title}{\huge\bfseries}
+\addtokomafont{titlehead}{\LARGE\centering}
 
 % label in captions fett, caption links aligned! 
 \captionsetup{labelfont=bf, justification=raggedright, singlelinecheck=false}
@@ -158,13 +179,21 @@
 	stringstyle=\ttfamily\codeTextStrings,
 }
 
-% eigene Kopfzeilen und Fußzeilen
-\pagestyle{fancy} 						% eigener Seitenstil
-\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
-\fancyhead[L]{\nouppercase{\leftmark}} 	% Kopfzeile links
-\fancyhead[C]{} 						% zentrierte Kopfzeile
-\fancyhead[R]{\thepage} 				% Kopfzeile rechts
-\renewcommand{\headrulewidth}{0.4pt} 	% obere Trennlinie
+%% eigene Kopfzeilen und Fußzeilen
+\fancypagestyle{contents}{%
+	\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
+	\fancyhead[L]{\nouppercase{\leftmark}} 	% Kopfzeile links
+	\fancyhead[C]{} 						% zentrierte Kopfzeile
+	\fancyhead[R]{\thepage} 				% Kopfzeile rechts
+	\renewcommand{\headrulewidth}{0.4pt} 	% obere Trennlinie
+} % eigener Seitenstil für Inhalte
+
+\fancypagestyle{preamble}{%
+	\fancyhf{} 								% alle Kopf- und Fußzeilenfelder bereinigen
+	\fancyhead{} 							% keine Kopfzeile
+	\fancyfoot[C]{\thepage} 				% Kopfzeile rechts
+	\renewcommand{\headrulewidth}{0pt} 	% obere Trennlinie
+} % eigener Seitenstil für Preambles
 
 %%\bibliographystyle{IEEEtran}
 % Bibliographie
@@ -177,41 +206,54 @@
 % Abkürzungsverzeichnis LiveTex Version
 \makenomenclature
 
+%% table of contents setup
+%\setlength\cftparskip{\tocspacing}
+\setlength\cftbeforesecskip{5pt}
+%\setlength\cftaftertoctitleskip{2pt}
+
+%\newcommand{\indexesspacing}{\cftbeforesecskip}
+\newcommand{\indexesspacing}{\cftbeforesecskip}
+
+\setlength\cftbeforesubsecskip{\indexesspacing}
+\setlength\cftbeforesubsubsecskip{\indexesspacing}
+\setlength\cftbeforefigskip{\indexesspacing}
+%\setlength\cftbeforesubfigskip{\indexesspacing}
+\setlength\cftbeforetabskip{\indexesspacing}
+%\setlength\cftbeforesubtabskip{\indexesspacing}
+
 \begin{document}
 	\input{vars}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% DECKBLATT %%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\pagestyle{empty}
+	
+	\singlespacing
 	\input{pages/0_deckblatt}
 	\newpage
-	\thispagestyle{empty}
+	\onehalfspacing
+	
 	\textcolor{gray}{\textit{Diese Seite wurde absichtlich frei gelassen}}
 	\newpage
-	\thispagestyle{empty}
+	
 	\input{pages/vorwort}
 	\newpage
 	
 	% Sperrvermerk
-	% \thispagestyle{empty}
 	% \input{sperrvermerk}
-	% \newpage
-	
-	% Abstract
-	% \thispagestyle{empty}
-	% \input{abstract}
-	% \singlespacing
 	% \newpage
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%% VERZEICHNISSE %%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
+	\pagestyle{preamble}
+	
 	% Inhaltsverzeichnis
-	\thispagestyle{empty}
 	\setcounter{page}{1}
 	\pagenumbering{Roman}
-	\onehalfspacing
 	\tableofcontents
 	\newpage
 	
@@ -234,24 +276,22 @@
 	%	\listofmyequations
 	%	\newpage
 	
-	% Listingverzeichnis
-	\renewcommand\lstlistingname{Listingverzeichnis}
-	\renewcommand\lstlistlistingname{Listingverzeichnis}
-	\addcontentsline{toc}{section}{Listingverzeichnis}
+	% Quellcodeausschnittverzeichnis
+	\renewcommand\lstlistingname{Quellcodeausschnitt}
+	\renewcommand\lstlistlistingname{Quellcodeausschnittverzeichnis}
+	\addcontentsline{toc}{section}{Quellcodeausschnittverzeichnis}
 	\lstlistoflistings
 	\newpage
 	
-	%Abkürzungsverzeichnis
+	% Abkürzungsverzeichnis
 	\section*{Abkürzungsverzeichnis}\label{abkuerzung}
 	\addcontentsline{toc}{section}{Abkürzungsverzeichnis}
-	\fancyhead[L]{Abkürzungsverzeichnis}
 	% \acro{kürzel}[kurzform]{langform}
 	\input{abk}
 	\newpage
 	
 	% Symbolverzeichnis
 	\addcontentsline{toc}{section}{Symbolverzeichnis}
-	\fancyhead[L]{Symbolverzeichnis}
 	\input{symb}
 	\printnomenclature
 	\newpage
@@ -260,11 +300,12 @@
 	%%% HAUPTTEIL %%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
+	\pagestyle{contents}
+	
 	\renewcommand{\sectionmark}[1]{\markright{#1}}
 	\lhead{\fancyplain{}{\rightmark }}
 	%\fancyhead[L]{\nouppercase{\leftmark}}
 	\pagenumbering{arabic}
-	\onehalfspacing
 	
 	\input{pages/1_abstract}
 	\newpage
@@ -282,14 +323,12 @@
 	%%% LITERATURVERZEICHNIS %%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\singlespacing
 	\addcontentsline{toc}{section}{Literaturverzeichnis}
 	\renewcommand\refname{Literaturverzeichnis}
 	\printbibliography
 	\newpage
 	
 	%	% Anhang
-	%	% \onehalfspacing
 	%	% \newpage
 	%	% \addcontentsline{toc}{section}{Anhang}
 	%	% \fancyhead[L]{Anhang} %Kopfzeile links

@@ -6,15 +6,16 @@
 	\glqq{#1}\grqq{}
 }
 
+%%% LABEL ALWAYS AFTER CAPTION %%%
 \newcommand{\image}[4][]{
 	\begin{figure}[H]
 		%
-		\label{#3}
 		\centering
 		%\includegraphics[width=1\textwidth]{images/RIFB.png}
 		%\includegraphics[height=10cm, keepaspectratio=true]{#1}
 		\includegraphics[width=\ifthenelse{\equal{#1}{}}{1\textwidth}{#1}, keepaspectratio=true]{#2}
 		\caption{#4}
+		\label{#3}
 	\end{figure}
 }
 
@@ -37,3 +38,5 @@
 		\label{#6}
 	\end{figure}
 }
+
+\newcommand{\newparagraph}{\\[12pt]}
