@@ -1,11 +1,11 @@
 \section{Einleitung}
 
 % 21cm - 3cm - 2.5cm = 15.5cm textwidth
-% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% TESTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Note: It may be necessary to compile the document several times to get a multi-page table to line up properly
 \begin{longtable}[c]{p{4.5cm} p{4.5cm} p{4.5cm}}
 	\caption{Diese Tabelle zeigt etwas}
 	\label{tab:my-table}\\
@@ -44,7 +44,8 @@ Dies ist ein neuer paragraph. \newparagraph
 Hier der neue Paragraph.!
 alle Tabellen, Bilder, Quellcodeausschnitte müssen iwo im text referenziert werden!
 
-Beispiel für Quellcode Listings
+\newpage
+Beispiel für Quellcode Listings mit inline Code
 \begin{lstlisting}[style=customC, caption={Custom C Code}, label={lst:ccode}]
 #include <stdio.h>
 #define DEBUG
@@ -63,3 +64,7 @@ puts("LaTeX is also great for programmers!");
 return 0;
 }
 \end{lstlisting}
+
+\newpage
+Beispiel für Quellcode Listings aus Datei
+\lstinputlisting[style=customPy, caption={Turtle recursive}, label={lst:ccode}]{code/test.py}
